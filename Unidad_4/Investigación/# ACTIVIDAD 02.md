@@ -499,4 +499,140 @@ Opciones:
 
 En ambos casos, lo clave es gestionar la memoria de los objetos internos (no solo de los nodos). Si no se hace bien, se tendrían fugas o dobles liberaciones.
 
+Preguntas de autoevaluación:
+
+1. ¿Puedo explicar detalladamente cómo funciona el proceso de apilar y desapilar nodos en un stack, incluyendo la gestión de memoria?
+
+RTA: Lo de la gestión de memoria si lo tengo claro, pero el proceso para apilar o desapilar si lo tengo que estudiar un poco más.
+
+2. ¿Soy capaz de identificar y corregir una fuga de memoria en una implementación de stack manual?
+
+RTA: En su mayoría sí, sería usando un destructor y llamando la función delete.
+
+3. ¿Puedo modificar el stack para que incluya una función que busque un elemento específico, sin alterar el orden de los elementos apilados?
+
+RTA: Más o menos
+
+4. ¿Entiendo cómo la estructura LIFO del stack afecta el flujo de datos y puedo dar ejemplos de problemas que se resuelvan mejor con un stack?
+
+RTA: Si
+
+5. ¿Puedo implementar y depurar un stack para tipos de datos más complejos, asegurándome de que no haya fugas de memoria ni errores de puntero?
+
+RTA: En su mayoría sí
+
+
+
+Preguntas de reflexión para la queue:
+
+1. ¿Cómo se maneja la memoria en una implementación manual de una queue en C++? Reflexiona sobre cómo se gestionan los nodos al encolar y desencolar elementos y las implicaciones en términos de eficiencia y seguridad.
+
+RTA: 
+
+En una queue manual, cada vez que se encola (enqueue) se crea un nodo nuevo en el heap con new. Ese nodo se enlaza al final mediante rear.
+Cuando se desencola (dequeue):
+
+- Se libera el nodo en el frente (delete temp).
+
+- Se mueve front al siguiente nodo.
+
+- Si la cola queda vacía, también se actualiza rear = nullptr.
+
+Las implicaciones es que por un lado, el proceso no es muy largo porque solo sería cuestión de mover punteros pero es un poco peligroso ya que si no se liberan bien los nodos, pueden haber fugas de memoria.
+
+2. ¿Qué desafíos específicos presenta la implementación de una queue en comparación con un stack en términos de gestión de memoria? Considera las diferencias en el manejo de punteros front y rear, y cómo estos afectan el proceso de encolado y desencolado.
+
+RTA: 
+
+En el stack solo se maneja un puntero (top).
+
+En la queue se tiene que controlar dos punteros: front y rear.
+
+- enqueue: actualizas rear.
+
+- dequeue: actualizas front.
+
+Caso especial: si la cola queda vacía, toca poner ambos en nullptr para no dejar referencias colgantes.
+
+Olvidar actualizar rear puede “romper” la cola.
+
+Si se pierde el puntero a front, ya no se puede liberar la memoria → fuga de memoria segura.
+
+3. ¿Cómo afecta la estructura FIFO (First In, First Out) de una queue a su uso en diferentes tipos de problemas? Analiza cómo la estructura FIFO influye en la resolución de problemas donde el orden de procesamiento es crucial, como en sistemas de colas de espera.
+
+RTA:
+
+La queue sigue FIFO: el primero en entrar es el primero en salir. Esto la hace ideal para problemas donde el orden de llegada importa.
+
+Ejemplos:
+
+- Colas de espera (bancos, restaurantes, sistemas operativos).
+
+- Procesamiento de tareas en orden de llegada.
+
+- BFS (Breadth-First Search) en grafos, donde se recorren niveles completos antes de avanzar.
+
+La clave es que FIFO garantiza justicia en el turno y que no se pierda el orden cronológico.
+
+4. ¿Cómo podrías implementar una queue circular y cuál sería su ventaja respecto a una queue lineal en términos de uso de memoria? Reflexiona sobre cómo una queue circular puede mejorar la eficiencia en ciertos contextos y qué cambios serían necesarios en la implementación.
+
+RTA:
+
+Una queue circular reutiliza el mismo bloque de memoria como un “anillo”.
+
+- En vez de crecer indefinidamente con new, se tiene un arreglo fijo de tamaño N.
+
+- Cuando se llega al final del arreglo, los punteros front y rear “dan la vuelta” al inicio.
+
+Ventajas:
+
+- No se desperdicia espacio: una queue lineal puede dejar huecos inutilizables cuando desencolas muchos elementos, pero la circular reaprovecha todo.
+
+- Más eficiente en contextos de memoria limitada (embebidos, videojuegos, buffers de audio).
+
+5. ¿Qué problemas podrían surgir si no se gestionan correctamente los punteros front y rear en una queue, y cómo podrías evitarlos? Considera posibles errores como la pérdida de referencias a nodos y cómo una gestión cuidadosa de los punteros puede prevenir estos problemas.
+
+RTA: En este caso podrían ocurrir las siguientes cosas, mismas que podrían arruinar la gestión de memoria en la aplicación:
+
+- Pérdida de las referencias de los nodos
+
+- Fugas de memoria en el heap
+
+- Inconsciencia de cuando la cola esté vacía
+
+Cómo evitar esto:
+
+- Siempre actualizar ambos punteros en casos especiales (cuando la cola se vacía).
+
+- Inicializar front = rear = nullptr en el constructor.
+
+- Usar clear() en el destructor para liberar cualquier nodo que quede.
+
+Preguntas de autoevaluación:
+
+1. ¿Puedo explicar claramente el proceso de encolar y desencolar nodos en una queue, incluyendo la gestión de memoria?
+
+RTA: Más o menos
+
+2. ¿Soy capaz de identificar y corregir problemas relacionados con la gestión de los punteros front y rear en una queue?
+
+RTA:En su mayoría
+
+3. ¿Puedo modificar la queue para implementar una queue circular, entendiendo cómo esto afectaría la gestión de memoria?
+
+RTA: Sí
+
+4. ¿Entiendo cómo la estructura FIFO de una queue afecta el flujo de datos y puedo dar ejemplos de problemas que se resuelvan mejor con una queue?
+
+RTA: Más o menos
+
+5. ¿Puedo implementar y depurar una queue para tipos de datos más complejos, asegurándome de que no haya fugas de memoria ni errores de puntero?
+
+RTA: Sí
+
+
+
+
+
+
 
