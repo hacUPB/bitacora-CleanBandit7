@@ -137,3 +137,6 @@ Para entregar oficialmente tu actividad:
 Recuerda que esta bitácora no solo es para evaluación, sino también un recurso valioso para tu aprendizaje y futuras referencias.
 
 Si tienes dudas sobre cómo organizar tu trabajo, no dudes en consultar con tu profesor o compañeros. ¡Estamos para ayudarte en este viaje de aprendizaje! 🤝
+
+![texto alternativo](Captura de pantalla 2025-09-14 213349.png)
+
